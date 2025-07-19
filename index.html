@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width">
         <title>The Odin Project: Calculator</title>
         <link rel="stylesheet" href="styles.css">
-        <script src="dom.js"></script>
     </head>
 
     <body>
@@ -14,41 +13,41 @@
             <div class="calc-inner-border">
                 <div class="screen">
                     <div class="output-box">
-                        <div class="output-text">1994</div>
+                        <div id="output-text">0</div>
                     </div>
                 </div>
                 <div class="button-container">
                     <div class="button-row clear-row">
-                        <div class="one-by-one-btn grey-btn"><h1>AC</h1></div>
-                        <div class="two-by-one-btn grey-btn"><h1>⌦</h1></div>
-                        <div class="one-by-one-btn grey-btn"><h1>/</h1></div>
+                        <div id="all-clear-btn" class="one-by-one-btn grey-btn"><h1>AC</h1></div>
+                        <div id="delete-btn" class="two-by-one-btn grey-btn"><h1>⌦</h1></div>
+                        <div id="divide-btn" class="one-by-one-btn grey-btn"><h1>/</h1></div>
                     </div>
                     <div class="button-row">
-                        <div class="one-by-one-btn yellow-btn"><h1>7</h1></div>
-                        <div class="one-by-one-btn yellow-btn"><h1>8</h1></div>
-                        <div class="one-by-one-btn yellow-btn"><h1>9</h1></div>
-                        <div class="one-by-one-btn grey-btn"><h1>*</h1></div>
+                        <div id="seven-btn" class="one-by-one-btn yellow-btn"><h1>7</h1></div>
+                        <div id="eight-btn" class="one-by-one-btn yellow-btn"><h1>8</h1></div>
+                        <div id="nine-btn" class="one-by-one-btn yellow-btn"><h1>9</h1></div>
+                        <div id="multiply-btn" class="one-by-one-btn grey-btn"><h1>*</h1></div>
                     </div>
                     <div class="button-row">
-                        <div class="one-by-one-btn yellow-btn"><h1>4</h1></div>
-                        <div class="one-by-one-btn yellow-btn"><h1>5</h1></div>
-                        <div class="one-by-one-btn yellow-btn"><h1>6</h1></div>
-                        <div class="one-by-one-btn grey-btn"><h1>-</h1></div>
+                        <div id="four-btn" class="one-by-one-btn yellow-btn"><h1>4</h1></div>
+                        <div id="five-btn" class="one-by-one-btn yellow-btn"><h1>5</h1></div>
+                        <div id="six-btn" class="one-by-one-btn yellow-btn"><h1>6</h1></div>
+                        <div id="subtract-btn" class="one-by-one-btn grey-btn"><h1>-</h1></div>
                     </div>                  
                     <div class="button-row">
-                        <div class="one-by-one-btn yellow-btn"><h1>1</h1></div>
-                        <div class="one-by-one-btn yellow-btn"><h1>2</h1></div>
-                        <div class="one-by-one-btn yellow-btn"><h1>3</h1></div>
-                        <div class="one-by-one-btn grey-btn"><h1>+</h1></div>
+                        <div id="one-btn" class="one-by-one-btn yellow-btn"><h1>1</h1></div>
+                        <div id="two-btn" class="one-by-one-btn yellow-btn"><h1>2</h1></div>
+                        <div id="three-btn" class="one-by-one-btn yellow-btn"><h1>3</h1></div>
+                        <div id="add-btn" class="one-by-one-btn grey-btn"><h1>+</h1></div>
                     </div>                    
                     <div class="button-row zero-row">
-                        <div class="two-by-one-btn grey-btn"><h1>0</h1></div>
-                        <div class="one-by-one-btn grey-btn"><h1>.</h1></div>
-                        <div class="one-by-one-btn grey-btn"><h1>=</h1></div>                                              
+                        <div id="zero-btn" class="two-by-one-btn grey-btn"><h1>0</h1></div>
+                        <div id="decimal-btn" class="one-by-one-btn grey-btn"><h1>.</h1></div>
+                        <div id="equals-btn" class="one-by-one-btn grey-btn"><h1>=</h1></div>                                              
                     </div>                                                                              
                 </div>
             </div>
         </div>
     </body>
-
+    <script src="dom.js"></script>
 </html>
