@@ -25,7 +25,16 @@ function deleteLastNum() {
 
 var liveInput = false;
 
-// Zero Button //
+
+// NumberPad //
+
+window.addEventListener("keydown", checkKeyPressed, false);
+
+function checkKeyPressed(e) {
+    console.log(e.keyCode);
+}
+
+window.addEventListener("keydown", calculateWithKeys, false);
 
 var zeroBtnValue = document.getElementById("zero-btn").textContent;
 var zeroBtnListener = document.getElementById("zero-btn").addEventListener("click", (e) => {
@@ -35,7 +44,7 @@ var zeroBtnListener = document.getElementById("zero-btn").addEventListener("clic
 // One Button //
 
 var oneBtnValue = document.getElementById("one-btn").textContent;
-var oneBtnListener = document.getElementById("one-btn").addEventListener("click", (e) => {
+var oneBtnListenerMpuse = document.getElementById("one-btn").addEventListener("click", (e) => {
     numberBtnClick(e, oneBtnValue);
 });
 
@@ -101,6 +110,26 @@ var decimalBtnValue = document.getElementById("decimal-btn").textContent;
 var decimalBtnListener = document.getElementById("decimal-btn").addEventListener("click", (e) => {
     numberBtnClick(e, decimalBtnValue);
 });
+
+function calculateWithKeys(e) {
+    if (e.keyCode === 96) {numberBtnClick(e, zeroBtnValue)}
+    else if (e.keyCode === 97) {numberBtnClick(e, oneBtnValue)}
+    else if (e.keyCode === 98) {numberBtnClick(e, twoBtnValue)}
+    else if (e.keyCode === 99) {numberBtnClick(e, threeBtnValue)}
+    else if (e.keyCode === 100) {numberBtnClick(e, fourBtnValue)}
+    else if (e.keyCode === 101) {numberBtnClick(e, fiveBtnValue)}
+    else if (e.keyCode === 102) {numberBtnClick(e, sixBtnValue)}
+    else if (e.keyCode === 103) {numberBtnClick(e, sevenBtnValue)}
+    else if (e.keyCode === 104) {numberBtnClick(e, eightBtnValue)}
+    else if (e.keyCode === 105) {numberBtnClick(e, nineBtnValue)}
+    else if (e.keyCode === 111) {createDivisionExpression(e, divideBtn)}
+    else if (e.keyCode === 106) {createMultiplicationExpression(e, multiplyBtn)}
+    else if (e.keyCode === 109) {createSubtractionExpression(e, subtractBtn)}    
+    else if (e.keyCode === 107) {createAdditionExpression(e, addBtn)}    
+    else if (e.keyCode === 13) {calculateValue()}    
+    else if (e.keyCode === 110) {numberBtnClick(e, decimalBtnValue)}    
+    else if (e.keyCode === 8) {deleteLastNum()}    
+};
 
 // Function for Numbered Buttons //
 
