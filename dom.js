@@ -95,14 +95,26 @@ var nineBtnListener = document.getElementById("nine-btn").addEventListener("clic
     numberBtnClick(e, nineBtnValue);
 });
 
+// Decimal Button //
+
+var decimalBtnValue = document.getElementById("decimal-btn").textContent;
+var decimalBtnListener = document.getElementById("decimal-btn").addEventListener("click", (e) => {
+    numberBtnClick(e, decimalBtnValue);
+});
+
 // Function for Numbered Buttons //
 
 function numberBtnClick(e, btnValue) {
+    if (btnValue === decimalBtnValue) {console.log("hi")}
     var currentOutput = document.getElementById("output-text").textContent;
-    if (currentOutput === "0") {
+    if (btnValue === decimalBtnValue && currentOutput === "0") {
+        return null;
+    } else if (btnValue === decimalBtnValue && currentOutput.includes(".")) {
+        return null;
+    } else if (currentOutput === "0") {
         document.getElementById("output-text").textContent = btnValue;
         liveOperandForScreen = false;
-    } else if (currentOutput.length > 8) { 
+    } else if (currentOutput.length > 8 ) { 
         return null;
     } else if (liveOperandForScreen === true) {
         document.getElementById("output-text").textContent = btnValue;
@@ -138,7 +150,7 @@ function createAdditionExpression(e, addBtn) {
 
     if (termOne === null) { 
         var currentOutput = document.getElementById("output-text").textContent;
-        termOne = parseInt(currentOutput);
+        termOne = parseFloat(currentOutput);
         document.getElementById("output-text").textContent = "0";
     }
 
@@ -170,7 +182,7 @@ function createSubtractionExpression(e, subtractBtn) {
 
     if (termOne === null) { 
         var currentOutput = document.getElementById("output-text").textContent;
-        termOne = parseInt(currentOutput);
+        termOne = parseFloat(currentOutput);
         document.getElementById("output-text").textContent = "0";
     }
 
@@ -198,7 +210,7 @@ function createMultiplicationExpression(e, multiplyBtn) {
 
     if (termOne === null) { 
         var currentOutput = document.getElementById("output-text").textContent;
-        termOne = parseInt(currentOutput);
+        termOne = parseFloat(currentOutput);
         document.getElementById("output-text").textContent = "0";
     }
 
@@ -226,7 +238,7 @@ function createDivisionExpression(e, divideBtn) {
 
     if (termOne === null) { 
         var currentOutput = document.getElementById("output-text").textContent;
-        termOne = parseInt(currentOutput);
+        termOne = parseFloat(currentOutput);
         document.getElementById("output-text").textContent = "0";
     }
 
@@ -253,7 +265,7 @@ function calculateValue() {
     if (termOne !== null && liveInput === true) {
 
         var currentOutput = document.getElementById("output-text").textContent;
-        termTwo = parseInt(currentOutput);
+        termTwo = parseFloat(currentOutput);
 
         if (trackedOperand === addBtn) {
             sum = addTerms(termOne, termTwo);
@@ -279,7 +291,6 @@ function calculateValue() {
             document.getElementById("output-text").textContent = `${quotient}`;
         }
 
-
         liveOperand = false;
         trackedOperand = "";
 
@@ -292,24 +303,32 @@ function calculateValue() {
 
 function addTerms(termOne, termTwo) {
     var sum = termOne + termTwo;
-    console.log("Sum: " + sum);
+    if (sum.toString().length > 8) {
+        sum = sum.toPrecision(8);
+    }
     return sum;
 };
 
 function subtractTerms(termOne, termTwo) {
     var difference = termOne - termTwo;
-    console.log("Difference: " + difference);
+    if (difference.toString().length > 8) {
+        difference = difference.toPrecision(8);
+    }
     return difference;
 };
 
 function multiplyTerms(termOne, termTwo) {
     var product = termOne * termTwo;
-    console.log("Product: " + product);
+    if (product.toString().length > 8) {
+        product = product.toPrecision(8);
+    }
     return product;
 };
 
 function divideTerms(termOne, termTwo) {
     var quotient = termOne / termTwo;
-    console.log("Quotient: " + quotient);
+    if (quotient.toString().length > 8) {
+        quotient = quotient.toPrecision(8);
+    }
     return quotient;
 };
