@@ -119,6 +119,40 @@ var termTwo = null;
 var trackedOperand = "";
 var liveOperand = false;
 
+// Operand Status Trackers //
+
+
+var addOperandTracker = document.getElementById("add-btn").textContent;
+var subtractOperandTracker = document.getElementById("subtract-btn").textContent;
+
+var addOperandLive = document.getElementById("add-btn").addEventListener("click", (e) => {
+    turnOnAddOperand(e, addOperandTracker);
+});
+
+function turnOnAddOperand(e, addOperandTracker) {
+    
+    trackedOperand = "+";
+    liveOperand = true;
+
+    console.log(trackedOperand)
+    console.log(liveOperand)
+
+};
+
+var subtractOperandLive = document.getElementById("subtract-btn").addEventListener("click", (e) => {
+    turnOnSubtractOperand(e, subtractOperandTracker);
+});
+
+function turnOnSubtractOperand(e, subtractOperandTracker) {
+    
+    trackedOperand = "-";
+    liveOperand = true;
+
+    console.log(trackedOperand)
+    console.log(liveOperand)
+
+}
+
 // Addition Button //
 
 var addBtn = document.getElementById("add-btn").textContent;
@@ -159,7 +193,6 @@ function addTerms(termOne, termTwo) {
     console.log("Sum: " + sum);
     return sum;
 };
-
 
 // Subtract Button //
 
@@ -203,3 +236,36 @@ function subtractTerms(termOne, termTwo) {
     return difference;
 };
 
+
+// Equals Button //
+
+var equalsBtn = document.getElementById("equals-btn").textContent;
+
+var equalsBtnListener = document.getElementById("equals-btn").addEventListener("click", (e) => {
+    calculateValue(e, termOne, termTwo);
+});
+
+function calculateValue(e, termOne) {
+
+    console.log(termOne)
+    console.log(termTwo)
+    console.log(trackedOperand)
+
+    var currentOutput = document.getElementById("output-text").textContent;
+    termTwo = parseInt(currentOutput);
+
+    if (trackedOperand === addBtn) {
+        sum = addTerms(termOne, termTwo);
+        termOne = sum;
+        document.getElementById("output-text").textContent = `${sum}`;
+    }
+
+    else if (trackedOperand === subtractBtn) {
+        difference = subtractTerms(termOne, termTwo);
+        termOne = difference;
+        document.getElementById("output-text").textContent = `${difference}`;
+    }
+    liveOperand = false;
+    trackedOperand = "";
+    
+};
