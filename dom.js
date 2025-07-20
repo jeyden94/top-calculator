@@ -184,6 +184,63 @@ function createSubtractionExpression(e, subtractBtn) {
 
 };
 
+
+// Multiplication Button //
+
+var multiplyBtn = document.getElementById("multiply-btn").textContent;
+var addBtnListener = document.getElementById("multiply-btn").addEventListener("click", (e) => {
+    createMultiplicationExpression(e, multiplyBtn);
+});
+
+function createMultiplicationExpression(e, multiplyBtn) {
+
+    if (liveInput === false) {return null}
+
+    if (termOne === null) { 
+        var currentOutput = document.getElementById("output-text").textContent;
+        termOne = parseInt(currentOutput);
+        document.getElementById("output-text").textContent = "0";
+    }
+
+    else if (termOne !== null) {
+        calculateValue();
+    }
+
+    trackedOperand = multiplyBtn;
+    liveOperandForScreen = true;
+    liveOperand = true;
+    liveInput = false;
+
+};
+
+// Division Button //
+
+var divideBtn = document.getElementById("divide-btn").textContent;
+var addBtnListener = document.getElementById("divide-btn").addEventListener("click", (e) => {
+    createDivisionExpression(e, divideBtn);
+});
+
+function createDivisionExpression(e, divideBtn) {
+
+    if (liveInput === false) {return null}
+
+    if (termOne === null) { 
+        var currentOutput = document.getElementById("output-text").textContent;
+        termOne = parseInt(currentOutput);
+        document.getElementById("output-text").textContent = "0";
+    }
+
+    else if (termOne !== null) {
+        calculateValue();
+    }
+
+    trackedOperand = divideBtn;
+    liveOperandForScreen = true;
+    liveOperand = true;
+    liveInput = false;
+
+};
+
 // Equals Button //
 
 var equalsBtn = document.getElementById("equals-btn").textContent;
@@ -209,6 +266,20 @@ function calculateValue() {
             termOne = difference;
             document.getElementById("output-text").textContent = `${difference}`;
         }
+
+        else if (trackedOperand === multiplyBtn) {
+            product = multiplyTerms(termOne, termTwo);
+            termOne = product;
+            document.getElementById("output-text").textContent = `${product}`;
+        }
+
+        else if (trackedOperand === divideBtn) {
+            quotient = divideTerms(termOne, termTwo);
+            termOne = quotient;
+            document.getElementById("output-text").textContent = `${quotient}`;
+        }
+
+
         liveOperand = false;
         trackedOperand = "";
 
@@ -229,4 +300,16 @@ function subtractTerms(termOne, termTwo) {
     var difference = termOne - termTwo;
     console.log("Difference: " + difference);
     return difference;
+};
+
+function multiplyTerms(termOne, termTwo) {
+    var product = termOne * termTwo;
+    console.log("Product: " + product);
+    return product;
+};
+
+function divideTerms(termOne, termTwo) {
+    var quotient = termOne / termTwo;
+    console.log("Quotient: " + quotient);
+    return quotient;
 };
