@@ -100,10 +100,14 @@ function numberBtnClick(e, btnValue) {
         document.getElementById("output-text").textContent = btnValue;
     } else if (currentOutput.length > 8) { 
         return null;
-    } else if (termOne !== null & termTwo !== null) {
+    } 
+    else if (liveOperand === true) {
         document.getElementById("output-text").textContent = btnValue;
+        liveOperand = false;
     }
-    else {
+    else if (liveOperand === false) {
+        document.getElementById("output-text").textContent += btnValue;
+    } else {
         document.getElementById("output-text").textContent += btnValue;
     }
 };
@@ -113,6 +117,7 @@ function numberBtnClick(e, btnValue) {
 var termOne = null;
 var termTwo = null;
 var trackedOperand = "";
+var liveOperand = false;
 
 // Addition Button //
 
@@ -146,6 +151,7 @@ function createAdditionExpression(e, addBtn) {
         }
     }
     trackedOperand = addBtn;
+    liveOperand = true;
 };
 
 function addTerms(termOne, termTwo) {
@@ -188,6 +194,7 @@ function createSubtractionExpression(e, subtractBtn) {
         }
     }
     trackedOperand = subtractBtn;
+    liveOperand = true;
 };
 
 function subtractTerms(termOne, termTwo) {
