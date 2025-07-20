@@ -21,6 +21,9 @@ function deleteLastNum() {
     else {output.textContent = "0"};
 };
 
+// Live Input
+
+var liveInput = false;
 
 // Zero Button //
 
@@ -98,76 +101,99 @@ function numberBtnClick(e, btnValue) {
     var currentOutput = document.getElementById("output-text").textContent;
     if (currentOutput === "0") {
         document.getElementById("output-text").textContent = btnValue;
+        liveOperandForScreen = false;
     } else if (currentOutput.length > 8) { 
         return null;
-    } 
-    else if (liveOperand === true) {
+    } else if (liveOperandForScreen === true) {
         document.getElementById("output-text").textContent = btnValue;
-        liveOperand = false;
-    }
-    else if (liveOperand === false) {
+        liveOperandForScreen = false;
+    } else if (liveOperandForScreen === false) {
         document.getElementById("output-text").textContent += btnValue;
     } else {
         document.getElementById("output-text").textContent += btnValue;
     }
+    liveInput = true;
+    console.log(termOne)
+    console.log(liveInput)
 };
 
-// --- Operand Buttons --- //
+// --- Expressions --- //
 
+var trackedOperand = "";
+var liveOperandForScreen = false;
+var liveOperand = false;
 var termOne = null;
 var termTwo = null;
-var trackedOperand = "";
-var liveOperand = false;
-
-// Operand Status Trackers //
-
-
-var addOperandTracker = document.getElementById("add-btn").textContent;
-var subtractOperandTracker = document.getElementById("subtract-btn").textContent;
-
-var addOperandLive = document.getElementById("add-btn").addEventListener("click", (e) => {
-    turnOnAddOperand(e, addOperandTracker);
-});
-
-function turnOnAddOperand(e, addOperandTracker) {
-    
-    trackedOperand = "+";
-    liveOperand = true;
-
-    console.log(trackedOperand)
-    console.log(liveOperand)
-
-};
-
-var subtractOperandLive = document.getElementById("subtract-btn").addEventListener("click", (e) => {
-    turnOnSubtractOperand(e, subtractOperandTracker);
-});
-
-function turnOnSubtractOperand(e, subtractOperandTracker) {
-    
-    trackedOperand = "-";
-    liveOperand = true;
-
-    console.log(trackedOperand)
-    console.log(liveOperand)
-
-}
 
 // Addition Button //
 
 var addBtn = document.getElementById("add-btn").textContent;
-
 var addBtnListener = document.getElementById("add-btn").addEventListener("click", (e) => {
     createAdditionExpression(e, addBtn);
 });
 
 function createAdditionExpression(e, addBtn) {
+
+    if (liveInput === false) {return null}
+
     if (termOne === null) { 
         var currentOutput = document.getElementById("output-text").textContent;
         termOne = parseInt(currentOutput);
         document.getElementById("output-text").textContent = "0";
     }
+
     else if (termOne !== null) {
+        calculateValue();
+
+    }
+
+    trackedOperand = addBtn;
+    liveOperandForScreen = true;
+    liveOperand = true;
+    liveInput = false;
+
+};
+
+// Subtract Button //
+
+var subtractBtn = document.getElementById("subtract-btn").textContent;
+var subtractBtnListener = document.getElementById("subtract-btn").addEventListener("click", (e) => {
+    createSubtractionExpression(e, subtractBtn);
+});
+
+function createSubtractionExpression(e, subtractBtn) {
+
+    if (liveInput === false) {return null}
+
+    liveOperandForScreen = true;
+    liveOperand = true;
+
+    if (termOne === null) { 
+        var currentOutput = document.getElementById("output-text").textContent;
+        termOne = parseInt(currentOutput);
+        document.getElementById("output-text").textContent = "0";
+    }
+
+    else if (termOne !== null) {
+        calculateValue();
+    }
+
+    trackedOperand = subtractBtn;
+    liveOperand = true;
+    liveInput = false;
+
+};
+
+// Equals Button //
+
+var equalsBtn = document.getElementById("equals-btn").textContent;
+var equalsBtnListener = document.getElementById("equals-btn").addEventListener("click", calculateValue);
+
+// Primary Calculation Function //
+
+function calculateValue() {
+
+    if (termOne !== null && liveInput === true) {
 
         var currentOutput = document.getElementById("output-text").textContent;
         termTwo = parseInt(currentOutput);
@@ -183,10 +209,15 @@ function createAdditionExpression(e, addBtn) {
             termOne = difference;
             document.getElementById("output-text").textContent = `${difference}`;
         }
-    }
-    trackedOperand = addBtn;
-    liveOperand = true;
+        liveOperand = false;
+        trackedOperand = "";
+
+    } else {
+        return null
+    };
 };
+
+// Individual Math Functions //
 
 function addTerms(termOne, termTwo) {
     var sum = termOne + termTwo;
@@ -194,78 +225,8 @@ function addTerms(termOne, termTwo) {
     return sum;
 };
 
-// Subtract Button //
-
-var subtractBtn = document.getElementById("subtract-btn").textContent;
-
-var subtractBtnListener = document.getElementById("subtract-btn").addEventListener("click", (e) => {
-    createSubtractionExpression(e, subtractBtn);
-});
-
-function createSubtractionExpression(e, subtractBtn) {
-    if (termOne === null) { 
-        var currentOutput = document.getElementById("output-text").textContent;
-        termOne = parseInt(currentOutput);
-        document.getElementById("output-text").textContent = "0";
-        trackedOperand = subtractBtn;
-    }
-    else if (termOne !== null) {
-
-        var currentOutput = document.getElementById("output-text").textContent;
-        termTwo = parseInt(currentOutput);
-
-        if (trackedOperand === addBtn) {
-            sum = addTerms(termOne, termTwo);
-            termOne = sum;
-            document.getElementById("output-text").textContent = `${sum}`;
-        }
-
-        else if (trackedOperand === subtractBtn) {
-            difference = subtractTerms(termOne, termTwo);
-            termOne = difference;
-            document.getElementById("output-text").textContent = `${difference}`;
-        }
-    }
-    trackedOperand = subtractBtn;
-    liveOperand = true;
-};
-
 function subtractTerms(termOne, termTwo) {
     var difference = termOne - termTwo;
     console.log("Difference: " + difference);
     return difference;
-};
-
-
-// Equals Button //
-
-var equalsBtn = document.getElementById("equals-btn").textContent;
-
-var equalsBtnListener = document.getElementById("equals-btn").addEventListener("click", (e) => {
-    calculateValue(e, termOne, termTwo);
-});
-
-function calculateValue(e, termOne) {
-
-    console.log(termOne)
-    console.log(termTwo)
-    console.log(trackedOperand)
-
-    var currentOutput = document.getElementById("output-text").textContent;
-    termTwo = parseInt(currentOutput);
-
-    if (trackedOperand === addBtn) {
-        sum = addTerms(termOne, termTwo);
-        termOne = sum;
-        document.getElementById("output-text").textContent = `${sum}`;
-    }
-
-    else if (trackedOperand === subtractBtn) {
-        difference = subtractTerms(termOne, termTwo);
-        termOne = difference;
-        document.getElementById("output-text").textContent = `${difference}`;
-    }
-    liveOperand = false;
-    trackedOperand = "";
-    
 };
